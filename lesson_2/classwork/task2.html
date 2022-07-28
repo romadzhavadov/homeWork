@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ITEA-JS ADVANCED - LESSON 2: CLASSWORK 2</title>
+  <link rel="stylesheet" href="css/style.min.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="testBlock hover">
+      <button class="iButton" id="mouseHover">1. Hover!</button>
+      <ul id="hoverResult" class="resultBlock">
+        <!-- <li class="red">Hovered!</li>
+        <li class="blue">Hovered!</li>
+        <li class="orange">Hovered!</li>
+        <li class="orange">Hovered!</li>
+        <li class="purple">Hovered!</li> -->
+      </ul>
+    </div>
+
+    <div class="testBlock click">
+      <button class="iButton" id="mouseClick">2. Click for do things</button>
+      <div id="clickResult" class="resultBlock one two three four five six"></div>
+    </div>
+
+    <div class="testBlock random">
+      <button class="iButton" id="mouseLight">3. Click for turn on lights</button>
+      <div id="lightResult" class="resultBlock"></div>
+    </div>
+
+    <div class="testBlock keyboard">
+      <button class="iButton" id="keyboardButton">4. Press any key</button>
+      <div id="keyboardResult" class="resultBlock key-colors"></div>
+    </div>
+
+  </div>
+
+  <script>
+    /*
+
+      Попрацюємо трохи з івентами:
+      onmouseenter
+      onclick
+      oncontextmenu
+      onkeydown
+
+      Завдання:
+      На кожну з конопок призначити дію, яка виконуватиме таку дію:
+      1.На ховер(onmouseenter) повісити обробник який буде при кожному наведенні
+        на кнопку виводитиме в блок результатом елемент li з текстом "hovered!"
+        у якого буде один із наступних класів:
+        red blue green orange purple
+
+      2.На кнопку кліка (onclick) повісити обробник який видалятиме класи з
+        блоку з результатом по черзі у такому порядку:
+
+        six > two > three > four > one > five
+
+        після того, як блок виявиться порожнім, додати їх у порядку зростання
+
+        one > two > three ... > six
+
+      3. На кнопку кліка (Light) повісити обробник, який виводитиме в
+      блок з результатом (lightResult) почергово один із кольорів світлофора:
+      Цикл: Off -> Red -> Yellow -> Green -> Off
+
+      4. На кнопку з обробником натискання (onkeydown) повісити обробник який буде:
+
+        - Виводити в блок з результатом (keyboardResult) число натискань на будь-яку клавішу клавіатури.
+        - Давати блоку (keyboardResult) класи, які відповідають числу кліків:
+
+        Н-р:
+        1 -> one
+        3 -> three
+        5 -> five
+        11 -> one one
+        115 -> one one five
+
+
+
+    */
+
+    var mouseHover = document.getElementById('mouseHover');
+    var mouseClick = document.getElementById('mouseClick');
+    var mouseLight = document.getElementById('mouseLight');
+    var keyboardButton = document.getElementById('keyboardButton');
+    let arr = ['red', 'blue', 'green', 'orange', 'purple'];
+  
+    let hoverResult = document.querySelector('#hoverResult');
+
+    mouseHover.onmouseenter = function(){
+      let rnmd = getRandomIntInclusive(0, arr.length - 1);
+      let li = document.createElement('li');
+      li.innerText = 'this is li';
+      li.classList.add(arr[rnmd]);
+
+      hoverResult.appendChild(li);
+    };
+
+    var clickIndex = 0;
+    var direction = false;
+
+    let classArr = ['six', 'two',  'three',  'four',  'one',  'five'];
+    let arrSort = ['one', 'two', 'three', 'four', 'five', 'six'];
+
+    let clickResult = document.querySelector('#clickResult');
+
+    mouseClick.onclick = function(){
+      let tmp = clickResult.classList;
+
+        if (!direction) {
+          
+          for (let i = 0; i < classArr.length; i++) {
+            if (clickResult.classList.contains(classArr[i])) {
+              clickResult.classList.remove(classArr[i]); 
+              
+              if (classArr[i] == classArr[classArr.length - 1]) {
+                direction = true;
+              } 
+              break;
+            }
+          }
+        }
+      else{
+        for (let i = 0; i < arrSort.length; i++) {
+          if (!clickResult.classList.contains(arrSort[i])) {
+              clickResult.classList.add(arrSort[i]);
+              
+            if (arrSort[i] == arrSort[arrSort.length - 1]) {
+              direction = false;
+            }
+            break;
+          }
+        }
+      }
+    }
+
+
+    let arrLight = ['Off', 'Red', 'Yellow', 'Green'];
+    
+    const lightResult = document.querySelector('#lightResult');
+    let count = 0;
+    mouseLight.onclick = function(e){
+
+      if (count < arrLight.length) {
+        lightResult.innerText = arrLight[count];
+        count += 1;
+      } else {
+        count = 0;
+      }
+      return;
+    }
+
+
+
+    
+   
+    let counter = 0;
+    let key = document.querySelector('#keyboardResult');
+    
+    let arrKey = [];
+
+    keyboardButton.onkeydown = function(){
+      key.innerText = counter;
+      counter += 1
+
+      for (let i = 0; i < document.querySelector('#keyboardResult').innerText.toString().length; i++) {
+      arrKey.push(counter);
+
+        if (document.querySelector('#keyboardResult').innerText.toString()) {
+            let number = function () {
+            switch (arrKey[i]) {
+              case "1": number += 'one '; break;
+              case "2": number += 'two '; break;
+              case "3": number += 'three '; break;
+              case "4": number += 'four '; break;
+              case "5": number += 'five '; break;
+              case "6": number += 'six '; break;
+              case "7": number += 'seven '; break;
+              case "8": number += 'eight '; break;
+              case "9": number += 'nine '; break;
+              case "0": number += 'zero '; break;
+            }
+            return number;
+          }
+        }
+      }
+      document.querySelector('#keyboardResult').innerHTML.className = "resultBlock key-colors " + number;
+    }
+    
+
+
+
+   
+
+
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+  </script>
+</body>
+</html>
