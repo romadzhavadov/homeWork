@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 2</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrap" id="wrap">
+      <header>
+        <button id="HouseButton">House</button>
+        <button id="TreeButton">Tree</button>
+        <button id="PlaneButton">Plane</button>
+      </header>
+      <div id="chooseYourBlock">
+
+      </div>
+      <div id="result">
+
+      </div>
+    </div>
+    <script>
+      /*
+        Завдання:
+
+         За натисканням кнопки в блок з id chooseYourBlock виводити іконку з натиснутою кнопки:
+
+         House: https://image.flaticon.com/icons/svg/149/149064.svg // taker any oher image
+         Tree: https://image.flaticon.com/icons/svg/620/620705.svg // taker any oher image
+         Plane: https://image.flaticon.com/icons/svg/579/579268.svg // taker any oher image
+
+         Під іконкою розташувати ще одну кнопку, натиснувши на яку з відповідного масиву
+         підтягується випадкова картинка із зображенням у блок result.
+         Попередній результат очищується.
+
+        var houseArray = [
+        "https://static.pexels.com/photos/106399/pexels-photo-106399.jpeg",
+        "https://i.pinimg.com/736x/7f/be/50/7fbe50ec634c65709d7fe6ac267c4e6f--large-garage-plans-house-plans-large-family.jpg",
+        "https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg"
+      ];
+        var planeArray = [
+        "http://www.x-plane.com/wp-content/uploads/2014/08/B777-200ER.png",
+        "https://media.cntraveler.com/photos/57067c1e9adc6caf5afe3f4c/master/pass/plane-landing-cr-getty-sb10062851ai-001.jpg",
+        "https://media.wired.com/photos/59323264a31264584499367f/master/w_1024,c_limit/diesel-plane-inline.jpg"
+      ];
+      var treeArray = [
+        "https://static.pexels.com/photos/56875/tree-dawn-nature-bucovina-56875.jpeg",
+        "https://c1.staticflickr.com/8/7218/7184786016_1ddab461e8_b.jpg",
+        "http://www.atzmut.com/wp-content/uploads/2016/01/tree.jpg"
+      ];
+
+      */
+
+      var buttons = document.querySelectorAll('button');
+      var iconBlock = document.getElementById('chooseYourBlock');
+      var resultBlock = document.getElementById('result');
+
+      function getRandomImg(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+
+      var iconsObj = {
+        house:  "https://i.pinimg.com/736x/7f/be/50/7fbe50ec634c65709d7fe6ac267c4e6f--large-garage-plans-house-plans-large-family.jpg",
+        tree: "http://www.x-plane.com/wp-content/uploads/2014/08/B777-200ER.png",
+        plane: "https://static.pexels.com/photos/56875/tree-dawn-nature-bucovina-56875.jpeg",
+      }
+
+      for (var i = 0; i <buttons.length; i++) {
+        buttons[i].addEventListener('click', showPhoto);
+      }
+
+
+      function showPhoto(event) {
+        var element = event.target.innerText.toLowerCase();
+        var targetLink = iconsObj[element];
+        var images = document.createElement('img');
+        images.src = targetLink;
+
+
+        var btn = document.createElement('button');
+        btn.innerText = 'Click Here!';
+        btn.addEventListener('click', showNextPhoto); 
+
+        chooseYourBlock.appendChild(images);
+        chooseYourBlock.appendChild(btn);
+      }
+
+
+
+      var picturesObj = {
+        houseArray: [
+          "https://static.pexels.com/photos/106399/pexels-photo-106399.jpeg",
+          "https://i.pinimg.com/736x/7f/be/50/7fbe50ec634c65709d7fe6ac267c4e6f--large-garage-plans-house-plans-large-family.jpg",
+          "https://i.ytimg.com/vi/Xx6t0gmQ_Tw/maxresdefault.jpg"
+        ],
+        planeArray: [
+          "http://www.x-plane.com/wp-content/uploads/2014/08/B777-200ER.png",
+          "https://media.cntraveler.com/photos/57067c1e9adc6caf5afe3f4c/master/pass/plane-landing-cr-getty-sb10062851ai-001.jpg",
+          "https://media.wired.com/photos/59323264a31264584499367f/master/w_1024,c_limit/diesel-plane-inline.jpg"
+        ],
+        treeArray: [
+          "https://static.pexels.com/photos/56875/tree-dawn-nature-bucovina-56875.jpeg",
+          "https://c1.staticflickr.com/8/7218/7184786016_1ddab461e8_b.jpg",
+          "http://www.atzmut.com/wp-content/uploads/2016/01/tree.jpg"
+        ]
+      }
+
+    function showNextPhoto(event) {
+      var img = document.createElement('img');
+      for (var item in picturesObj) {
+        var randomImage = getRandomImg(0, picturesObj[item].length - 1);
+        img.src = picturesObj[item][randomImage];
+
+        resultBlock.appendChild(img);
+      }
+    }
+
+    console.log(buttons);
+
+
+      buttons.forEach( (btn) => {
+        //alert('working')
+      });
+
+
+      // steps to do
+      // 1. on btn click define which button was clicked and take its innerHTML
+      // 2. with value from step 1 take img.src from iconsObj
+      // 3. create tag img and paste src attr from step 2, and create btn
+      // 4. on button add event listener which will create an img with random src from array corresponding arr: houseArray, planeArray, treeArray
+      // 5. append img from step 3 into chooseYourBlock
+      // 6. append btn from step 4 into chooseYourBlock
+      
+    </script>
+  </body>
+</html>

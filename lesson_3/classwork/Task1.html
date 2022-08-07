@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Taks 1</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrap" id="wrap">
+        <h1>Додавання списку елементів за умовою</h1>
+
+        <header>
+          <input type="text" placeholder="" id="Receiver"/>
+          <input type="submit" value="Add" id="AddToList"/>
+        </header>
+
+        <div>
+          <div id="error">
+
+          </div>
+          <ul id="list">
+
+          </ul>
+        </div>
+
+    </div>
+    <script>
+      /*
+          Завдання:
+
+           Написати скрипт, який буде додавати введений в інпут Receiver текст
+           до списку list.
+           Якщо у списку більше 5 записів, прибирати Event з кнопки AddToList.
+           Кнопці AddToList додати disabled = true
+
+           Після кожного введення очищати значення інпуту
+
+           Використовувати методи:
+
+           addEventListener
+           removeEventListener
+
+           document.getElementById
+           document.createElement
+
+           element.innerText
+           element.setAttribute
+           element.appendChild
+
+           Отримати значення інпуту: Receiver.value [Receiver – це id]
+
+      */
+
+      // steps to follow
+      // 0. create variable counter = 0;
+      // 1. отримати доступ до всіх необхідних елементів
+      // 2. повісити обробник на AddToList
+      // 3. increment counter
+      // 4. create tag li
+      // 5. take value from input
+      // 6. insert that value from step 5 into created tag li
+      // 7. append created tag li into block with id list
+
+      // implement check if counter > 5 than 
+      // Якщо у списку більше 5 записів, прибирати Event з кнопки AddToList.
+      // Кнопці AddToList додати disabled = true
+
+
+      var ListCount = 0;
+
+      var wrap = document.getElementById('wrap');
+      var receiver = document.getElementById('Receiver');
+      var addToList = document.getElementById('AddToList');
+      var list = document.querySelector('#list');
+
+
+      addToList.addEventListener('click', createText); 
+
+      function createText () {
+        ListCount++;
+
+        var link = document.createElement('li');
+        var text = document.querySelector('#Receiver').value;
+
+        link.innerText = text;
+
+        list.appendChild(link);
+
+        if (ListCount >= 5) {
+          addToList.removeEventListener('click', createText);
+          addToList.setAttribute("disabled", true);
+        }
+      }
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 3</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="wrap" id="wrap">
+      <h1>Переключение слайдера</h1>
+      <div class="roadMap__container yellow">
+        <button class="navButtonPrev" data-direction="<"> Prev </button>
+        <div class="roadMap">
+          <div class="roadMapPoint" data-id="1"></div>
+          <div class="roadMapPoint ball" data-id="2"></div>
+          <div class="roadMapPoint" data-id="3"></div>
+          <div class="roadMapPoint" data-id="4"></div>
+          <div class="roadMapPoint" data-id="5"></div>
+          <div class="roadMapPoint" data-id="6"></div>
+          <div class="roadMapPoint" data-id="7"></div>
+          <div class="roadMapPoint" data-id="8"></div>
+        </div>
+        <button class="navButtonNext" data-direction=">"> Next </button>
+      </div>
+
+      <div class="roadMap__container red">
+        <button class="navButtonPrev" data-direction="<"> Prev </button>
+        <div class="roadMap">
+          <div class="roadMapPoint" data-id="1"></div>
+          <div class="roadMapPoint" data-id="2"></div>
+          <div class="roadMapPoint ball" data-id="3"></div>
+          <div class="roadMapPoint" data-id="4"></div>
+        </div>
+        <button class="navButtonNext" data-direction=">"> Next </button>
+      </div>
+
+      <div class="roadMap__container blue">
+        <button class="navButtonPrev" data-direction="<"> Prev </button>
+        <div class="roadMap">
+          <div class="roadMapPoint" data-id="1"></div>
+          <div class="roadMapPoint ball" data-id="2"></div>
+          <div class="roadMapPoint" data-id="3"></div>
+          <div class="roadMapPoint" data-id="4"></div>
+        </div>
+        <button class="navButtonNext" data-direction=">"> Next </button>
+      </div>
+      
+      <div class="roadMap__container red">
+          <button class="navButtonPrev" data-direction="<"> Prev </button>
+          <div class="roadMap">
+            <div class="roadMapPoint" data-id="1"></div>
+            <div class="roadMapPoint" data-id="2"></div>
+            <div class="roadMapPoint ball" data-id="3"></div>
+            <div class="roadMapPoint" data-id="4"></div>
+          </div>
+          <button class="navButtonNext" data-direction=">"> Next </button>
+        </div>
+  
+        <div class="roadMap__container blue">
+          <button class="navButtonPrev" data-direction="<"> Prev </button>
+          <div class="roadMap">
+            <div class="roadMapPoint" data-id="1"></div>
+            <div class="roadMapPoint ball" data-id="2"></div>
+            <div class="roadMapPoint" data-id="3"></div>
+            <div class="roadMapPoint" data-id="4"></div>
+          </div>
+          <button class="navButtonNext" data-direction=">"> Next </button>
+        </div>
+
+    </div>
+    <script>
+
+      /*
+        Завдання:
+
+         Написати скрипт, який приводить у дію перемикачі з розмітки.
+         І переміщатиме клас ball по точках залежно від натиснутої кнопки
+
+      */
+
+      // var containers = document.querySelectorAll('.roadMap__container');
+      //     containers.forEach( function( container ){
+      //       console.log( container );
+      //       var ball = container.querySelector('.ball');
+      //       console.log( ball.dataset.id );
+      //     })
+
+
+
+  var containers = document.querySelectorAll(".roadMap__container");
+
+  let lookingForClassMinus = function () {
+    let test = document.querySelectorAll(".roadMapPoint");
+    for (let i = 0; i < test.length; i++) {
+      if (test[i].classList.contains("ball")) {
+        test[i].classList.remove("ball");
+        test[i - 1].classList.add("ball");
+        break;
+      }
+    }
+  };
+
+  let lookingForClassNext = function () {
+    let test = document.querySelectorAll(".roadMapPoint");
+    for (let i = 0; i < test.length; i++) {
+      if (test[i].classList.contains("ball")) {
+        test[i].classList.remove("ball");
+        test[i + 1].classList.add("ball");
+        break;
+      }
+    }
+  };
+
+  let firstContainer = document.querySelector(".navButtonPrev");
+  let secondContainer = document.querySelector(".navButtonNext");
+
+  firstContainer.addEventListener("click", lookingForClassMinus);
+  secondContainer.addEventListener("click", lookingForClassNext);
+
+    </script>
+  </body>
+
+</html>
