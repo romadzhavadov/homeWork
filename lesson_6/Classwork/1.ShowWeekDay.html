@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Classwork</title>
+</head>
+<body>
+      <header>
+          <input id="MyDateSelector" type="date"/>
+          <button id="ShowDayButton">Показать день недели</button>
+      </header>
+      <div id="result"></div>
+      <script>
+
+          /*
+            Створіть функцію, яка на кліку на "показати день тижня" повертає день тижня для обраної дати з інтуту.
+             День потрібно повернути в div#result у текстовому форматі, тобто понеділок, вівторок, субота тощо
+          */
+
+          var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            var btnShowDay = document.getElementById('ShowDayButton');
+            var result = document.getElementById('result');
+
+            var showDayOfTheWeek = () => {
+                var selectedDate = new Date(document.getElementById('MyDateSelector').value).getDay();
+
+                if (!selectedDate) {
+                    alert('please select a date');
+                    return;
+                }
+
+                result.innerText = daysOfTheWeek[selectedDate];
+            }
+
+            btnShowDay.addEventListener('click', showDayOfTheWeek);
+
+      </script>
+</body>
+</html>

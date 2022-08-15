@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance</title>
+</head>
+<body>
+    <!-- 
+        Реалізувати успадкування за прикладом, наведеним на картинку inheritance
+         
+          class Man повинен мати поля
+             name
+             age
+             country
+         + методи з картинки
+        
+         Кожен метод повинен виводити у консолі всі поля + ім'я методу
+         WALK:
+             console.log(`Hi! My name is ${name}, and Im {age} years old. Im from ${country}, and I like to WALK a lot`)
+        
+
+
+
+     -->
+
+     <script>
+        class Man {
+            constructor(name, age, country) {
+                this.name = name;
+                this.age = age;
+                this.country = country;
+            }
+
+            walk() {
+                console.log(`${this.name} is walking`);
+            }
+
+            drink() {
+                console.log(`${this.name} is drinking`);
+            }
+
+            eat() {
+                console.log(`${this.name} is eating`);
+            }
+        }
+
+        class Doctor extends Man{
+            constructor(name, age, country, secondName){
+                super(name, age, country);
+
+                this.secondName = secondName;
+                } 
+            cure() {
+                console.log(`${this.name} is curing`);
+            }
+        }
+
+        let doc = new Doctor('Doc1', 12, 'Ukraine', 'secondNameDoc');
+
+        class Soldier extends Man{
+            constructor(name, age, country, secondName){
+                super(name, age, country);
+
+                this.secondName = secondName;
+                } 
+            shoot() {
+                console.log(`${this.name} is shooting`);
+            }
+        }
+
+        let soldier = new Soldier('Jack', 13, 'Ukraine', 'secondNameJack');
+
+
+
+     </script>
+</body>
+</html>

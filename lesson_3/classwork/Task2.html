@@ -83,7 +83,9 @@
 
         var btn = document.createElement('button');
         btn.innerText = 'Click Here!';
-        btn.addEventListener('click', showNextPhoto); 
+
+    btn.addEventListener('click', showNextPhoto);
+ 
 
         chooseYourBlock.appendChild(images);
         chooseYourBlock.appendChild(btn);
@@ -114,6 +116,7 @@
       for (var item in picturesObj) {
         var randomImage = getRandomImg(0, picturesObj[item].length - 1);
         img.src = picturesObj[item][randomImage];
+
 
         resultBlock.appendChild(img);
       }
