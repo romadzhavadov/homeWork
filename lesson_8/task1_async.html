@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table, td{
+            border: 1px solid #000;
+            padding: 13px;
+        }
+
+        .hidden-data{
+            display: none;
+        }
+
+        .show + .hidden-data{
+            display: block;
+        }
+    </style>
+    <!-- 
+        /*
+
+        Задание:
+
+            Написать при помощи async-await скрипт, который:
+
+            Получает список users:  https://jsonplaceholder.typicode.com/users
+            Перебирает, выводит табличку:
+
+        # | userName | email           | Показать webiste   | Показать phone |
+        1.| userName | email@test.com  | button             | button
+        2.| userName | email@test.com  | 20/10/2019         | button
+        3.| userName | email@test.com  | button             | button
+        4.| userName | email@test.com  | button             | button
+
+        Данные о сайте и номер телефона скрывать при выводе и показывать при клике.
+
+        */
+     -->
+</head>
+<body>
+
+    <script>
+        async function getData() {
+            let res = await fetch('https://jsonplaceholder.typicode.com/users');
+            let data = await res.json();
+            
+            return data;
+        }
+
+        async function initTable() {            
+            const data = await getData();
+
+            new Table(document.querySelector('body'), data);
+        }
+
+        initTable();
+        
+        class Table {
+            constructor(el, data) {
+                this.el = el;
+                this.data = data;
+
+                this.Build();
+            }
+            
+            Build(){
+                this.el.appendChild(this.BuildHeader());
+                this.el.appendChild(this.BuildBody());
+            }
+
+            BuildHeader() {
+                let tableHead = document.createElement('thead');
+
+                tableHead.innerHTML = `
+                    <tr>
+                        <th>#</th>
+                        <th>user name</th>
+                        <th>email</th>
+                        <th>Показать webiste</th>
+                        <th>Показать phone</th>
+                    </tr>
+                `;
+
+                return tableHead;
+            }
+
+            BuildBody() {
+                let tableBody = document.createElement('tbody');
+
+                this.data.forEach( (item, i) => {
+                    let bodyRow = document.createElement('tr');
+                    bodyRow.innerHTML = `
+                        <td>${i}</td>
+                        <td>${item.username}</td>
+                        <td>${item.email}</td>
+                        <td>
+                            <button class="_btnToggleWebsite">show/hide</button>
+                            <span class="hidden-data">${item.website}</span>
+                        </td>
+                        <td>
+                            <button class="_btnEmailAddress">show/hide</button>
+                            <span class="hidden-data">${item.email}</span>
+                        </td>
+                    `;
+
+                    bodyRow.querySelector('._btnToggleWebsite').addEventListener('click', (e) => {
+                        e.target.classList.toggle('show');
+                    });
+
+                    bodyRow.querySelector('._btnEmailAddress').addEventListener('click', (e) => {
+                        e.target.classList.toggle('show');
+                    });
+
+                    tableBody.appendChild(bodyRow);
+                });
+
+                return tableBody;
+            }
+        }        
+
+    </script>    
+</body>
+</html>

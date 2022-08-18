@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hideForm {
+            display: none;
+        }
+
+        .showForm {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="hideForm">
+        <label>
+            <span>login</span>
+            <input type="text" id="login" />
+        </label>
+        <label>
+            <span>password</span>
+            <input type="password" id="password" />
+        </label>
+        <button>make magic</button>
+    </form>
+    <button class="exit">exit</button>
+    <script>
+        if (localStorage.getItem('user') != null) {
+            alert(`Привіт ${JSON.parse(localStorage.getItem('user')).login}`);
+        }
+        else {
+            document.querySelector('form').classList.add('showForm');
+        }
+        document.querySelector('button').addEventListener('click', function (e) {
+            e.preventDefault();
+            let login = document.querySelector('#login').value;
+            let password = document.querySelector('#password').value;
+            let tmpUser = {
+                login,
+                password
+            };
+            if (tmpUser.login === 'admin@example.com' && tmpUser.password === '12345678') {
+                localStorage.setItem('user', JSON.stringify(tmpUser));
+                document.querySelector('form').className = 'hideForm';
+                document.querySelector('.exit').style.display = "block";
+            }
+
+        });
+
+        document.querySelector('.exit').addEventListener('click', function (e) {
+            localStorage.removeItem('user');
+            document.querySelector('form').className = 'showForm';
+            e.target.style.display = "none";
+        });
+
+        /*
+
+    Завдання 2:
+     Написати форму логіну (логін пароль), яка після відправки даних записує їх у localStorage.
+     Якщо в localStorage є запис - На сторінці вивести "Привіт {username}", якщо ні - вивести вікно
+     логіна.
+
+     + бонус, зробити кнопку "вийти" яка видаляє запис із localStorage і знову показує форму логіна
+     + бонус зробити перевірку логіну та пароля на конкретний запис. Тобто. залогінить користувача якщо
+     він введе тільки admin@example.com та пароль 12345678
+
+
+*/
+    </script>
+</body>
+
+</html>
